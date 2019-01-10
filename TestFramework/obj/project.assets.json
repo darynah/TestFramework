@@ -5668,11 +5668,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\daryna.horobets\\Downloads\\nUnit\\TestFramework\\TestFramework\\TestFramework.csproj",
+      "projectUniqueName": "C:\\Users\\daryna.horobets\\Projects\\TestFramework\\TestFramework\\TestFramework.csproj",
       "projectName": "TestFramework",
-      "projectPath": "C:\\Users\\daryna.horobets\\Downloads\\nUnit\\TestFramework\\TestFramework\\TestFramework.csproj",
+      "projectPath": "C:\\Users\\daryna.horobets\\Projects\\TestFramework\\TestFramework\\TestFramework.csproj",
       "packagesPath": "C:\\Users\\daryna.horobets\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\daryna.horobets\\Downloads\\nUnit\\TestFramework\\TestFramework\\obj\\",
+      "outputPath": "C:\\Users\\daryna.horobets\\Projects\\TestFramework\\TestFramework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

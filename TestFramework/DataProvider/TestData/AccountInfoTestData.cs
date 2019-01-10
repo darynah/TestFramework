@@ -20,8 +20,8 @@ namespace TestFramework.DataProvider.TestData
                 },
                 new ExpectedAccountInfoResponceProvider()
                 {
-                    LastName = "Yuriy_",
-                    Firstname = "Padalko",
+                    LastName = "Padalko",
+                    Firstname = "Yuriy",
                     City = "Kiev",
                     Email = "yuriy.padalko+9438294@betlab.com"
                 }

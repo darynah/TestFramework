@@ -20,7 +20,7 @@ namespace TestFramework.Requests
 
         public void Authorize(LoginProvider login)
         {
-            _token = TokenManager.GetToken(login);
+            _token = TokenManager.Authorize(login);
         }
 
         public IAccountInfoModel GetAccountInfo()

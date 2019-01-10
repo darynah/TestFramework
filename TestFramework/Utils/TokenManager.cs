@@ -9,19 +9,20 @@ namespace TestFramework.Utils
 {
     public static class TokenManager
     {
-        private static string _token;
+        //[ThreadStatic]
+        //private static string _token;
 
-        public static string GetToken(LoginProvider login)//
-        {
-            if (string.IsNullOrEmpty(_token))//
-            {
-                _token = Authorize(login);
-                return _token;
-            }
-            return _token;
-        }
+        //public static string GetToken(LoginProvider login)//
+        //{
+        //    if (string.IsNullOrEmpty(_token))//
+        //    {
+        //        _token = Authorize(login);
+        //        return _token;
+        //    }
+        //    return _token;
+        //}
 
-        private static string Authorize(LoginProvider login)//
+        public static string Authorize(LoginProvider login)//
         {
             ApiClient pmClient = new ApiClient("http://air-pm-skeleton-bl.hp.consul");
 
