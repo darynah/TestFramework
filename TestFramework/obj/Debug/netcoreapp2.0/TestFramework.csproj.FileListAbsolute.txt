@@ -41,3 +41,4 @@ C:\Users\daryna.horobets\Projects\TestFramework\TestFramework\obj\Debug\netcorea
 C:\Users\daryna.horobets\Projects\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.AssemblyInfo.cs
 C:\Users\daryna.horobets\Projects\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.dll
 C:\Users\daryna.horobets\Projects\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.pdb
+C:\Users\daryna.horobets\Projects\TestFramework\TestFramework\bin\Debug\netcoreapp2.0\DataProvider\CsvData\login.csv

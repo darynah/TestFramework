@@ -1,13 +1,14 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "c6e8e0ac206a33aa66693705d3accc2d791581c1"
+    "signature": "69d2d155f17284abcc34cf5bc2cd5b72497797c0"
   },
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v2.0": {
       "TestFramework/1.0.0": {
         "dependencies": {
+          "LumenWorks.Framework.IO.Core": "1.0.1",
           "Microsoft.NET.Test.Sdk": "15.8.0",
           "Microsoft.Net.Http": "2.2.29",
           "NUnit": "3.11.0",
@@ -16,6 +17,14 @@
         },
         "runtime": {
           "TestFramework.dll": {}
+        }
+      },
+      "LumenWorks.Framework.IO.Core/1.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/LumenWorks.Framework.IO.Core.dll": {
+            "assemblyVersion": "1.0.1.0",
+            "fileVersion": "1.0.1.0"
+          }
         }
       },
       "Microsoft.Bcl/1.1.10": {
@@ -1023,6 +1032,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "LumenWorks.Framework.IO.Core/1.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KSBoY7TEN+n8iXjCyXAAAtgvN/49xd4Vxt9ifinU1Y3TXVCBJ16baW4Odtr0NcUoY8D3iWlTnPMUaDYV7Z595w==",
+      "path": "lumenworks.framework.io.core/1.0.1",
+      "hashPath": "lumenworks.framework.io.core.1.0.1.nupkg.sha512"
     },
     "Microsoft.Bcl/1.1.10": {
       "type": "package",

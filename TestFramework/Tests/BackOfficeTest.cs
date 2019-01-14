@@ -16,7 +16,7 @@ namespace TestFramework.Tests
             _myLoginPage = new SkeletonRequest();
         }
 
-        [TestCaseSource(typeof(AccountInfoTestData), nameof(AccountInfoTestData.GetAccountInfoData))]
+        [TestCaseSource(typeof(CsvAccountInfoTestData), nameof(CsvAccountInfoTestData.GetAccountInfoData))]
         public void CheckAccountInfo(LoginProvider loginProvider, ExpectedAccountInfoResponceProvider expectedProvider)
         {
             _myLoginPage.Authorize(loginProvider);
