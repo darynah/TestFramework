@@ -1,5 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+
 
 namespace TestFramework.Pages
 {
@@ -25,5 +27,20 @@ namespace TestFramework.Pages
         {
             throw new NotImplementedException();
         }
+        private void SelectBirthday(int day)
+        {
+            var dayt = _driver.FindElement(By.XPath("//select[@ref='day']"));
+            var selectelement =  new SelectElement(dayt);
+            //selectelement.SelectByIndex();
+        }
+        private void SelectBirthMonth(int month)
+        {
+            throw new NotImplementedException();
+        }
+        private void SelectBirthYear(int year)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
