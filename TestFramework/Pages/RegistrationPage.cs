@@ -15,7 +15,7 @@ namespace TestFramework.Pages
         {
             _driver.FindElement(By.Id("email")).SendKeys(email);
         }
-        public void SelectBirthDay(int year, int month, int day)
+        public void SelectBirthDay(string year, string month, string day)
         {
             SelectBirthday(day);
             SelectBirthMonth(month);
@@ -35,24 +35,31 @@ namespace TestFramework.Pages
         {
             _driver.FindElement(By.CssSelector(".form-wrap__footer>button")).Click();
         }
-        private void SelectBirthday(int day)
+        private void SelectBirthday(string day)
         {
             IWebElement selectday = _driver.FindElement(By.XPath("//select[@ref='day']"));
             SelectElement selectByDay  = new SelectElement(selectday);
             selectByDay.SelectByValue(day.ToString());
         }
-        private void SelectBirthMonth(int month)
+
+        private void SelectBirthMonth(string month)
         {
             IWebElement selectmonth = _driver.FindElement(By.XPath("//select[@ref='month']"));
             SelectElement selectByMonth = new SelectElement(selectmonth);
             selectByMonth.SelectByValue(month.ToString());
         }
-        private void SelectBirthYear(int year)
+
+        private void SelectBirthYear(string year)
         {
             IWebElement selectyear = _driver.FindElement(By.XPath("//select[@ref='year']"));
             SelectElement selectByYear = new SelectElement(selectyear);
             selectByYear.SelectByValue(year.ToString());
         }
 
+        public string GetRegistredEmail()
+        {
+            var element = _driver.FindElement(By.ClassName("short-registration-success__email"));
+            return element.Text; ;
+        }
     }
 }
