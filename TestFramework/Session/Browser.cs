@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
@@ -11,6 +12,7 @@ namespace TestFramework.Session
         public Browser()
         {
             _browser = "Chrome";
+
         }
 
         public IWebDriver Build()
@@ -20,7 +22,7 @@ namespace TestFramework.Session
             {
                 var options = new ChromeOptions();
                 options.AddArgument("start-maximized");// fullscreen
-                driver = new ChromeDriver(options);
+                driver = new ChromeDriver(Directory.GetCurrentDirectory(),options);
                 driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             }
             else

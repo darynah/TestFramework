@@ -7,6 +7,10 @@ namespace TestFramework.Pages
 {
     public class RegistrationPage : _BasePage
     {
+        public RegistrationPage()
+        {
+            _driver.Url = "http://air-pm-skeleton-bl.hp.consul/en/regmail";
+        }
         public void InsertEmail(string email)
         {
             _driver.FindElement(By.Id("email")).SendKeys(email);
