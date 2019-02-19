@@ -13,33 +13,41 @@ namespace TestFramework.Pages
         }
         public void SelectBirthDay(int year, int month, int day)
         {
-            throw new NotImplementedException();
+            SelectBirthday(day);
+            SelectBirthMonth(month);
+            SelectBirthYear(year);
         }
         public void SelectCurrency(string currency)
         {
-            throw new NotImplementedException();
+            IWebElement selectcurrency = _driver.FindElement(By.Id("currencyId'"));
+            SelectElement select = new SelectElement(selectcurrency);
+            select.SelectByValue(currency);
         }
         public void InsertPassword(string password)
         {
-            throw new NotImplementedException();
+            _driver.FindElement(By.Id("password")).SendKeys(password);
         }
         public void SubmitRegistration()
         {
-            throw new NotImplementedException();
+            _driver.FindElement(By.CssSelector(".form-wrap__footer>button")).Click();
         }
         private void SelectBirthday(int day)
         {
-            var dayt = _driver.FindElement(By.XPath("//select[@ref='day']"));
-            var selectelement =  new SelectElement(dayt);
-            //selectelement.SelectByIndex();
+            IWebElement selectday = _driver.FindElement(By.XPath("//select[@ref='day']"));
+            SelectElement selectByDay  = new SelectElement(selectday);
+            selectByDay.SelectByValue(day.ToString());
         }
         private void SelectBirthMonth(int month)
         {
-            throw new NotImplementedException();
+            IWebElement selectmonth = _driver.FindElement(By.XPath("//select[@ref='month']"));
+            SelectElement selectByMonth = new SelectElement(selectmonth);
+            selectByMonth.SelectByValue(month.ToString());
         }
         private void SelectBirthYear(int year)
         {
-            throw new NotImplementedException();
+            IWebElement selectyear = _driver.FindElement(By.XPath("//select[@ref='year']"));
+            SelectElement selectByYear = new SelectElement(selectyear);
+            selectByYear.SelectByValue(year.ToString());
         }
 
     }
