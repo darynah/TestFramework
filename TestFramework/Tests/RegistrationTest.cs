@@ -10,7 +10,7 @@ namespace TestFramework.Tests
         {
             RegistrationPage registrationPage = new RegistrationPage();
             registrationPage.InsertEmail("ppp@mailforspam.com");
-            registrationPage.SelectBirthDay(1789,12,22);
+            registrationPage.SelectBirthDay(1989,12,22);
             registrationPage.SelectCurrency("3");
             registrationPage.InsertPassword("123456");
             registrationPage.SubmitRegistration();

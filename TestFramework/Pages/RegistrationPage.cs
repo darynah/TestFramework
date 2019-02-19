@@ -23,7 +23,7 @@ namespace TestFramework.Pages
         }
         public void SelectCurrency(string currency)
         {
-            IWebElement selectcurrency = _driver.FindElement(By.Id("currencyId'"));
+            IWebElement selectcurrency = _driver.FindElement(By.Id("currencyId"));
             SelectElement select = new SelectElement(selectcurrency);
             select.SelectByValue(currency);
         }
