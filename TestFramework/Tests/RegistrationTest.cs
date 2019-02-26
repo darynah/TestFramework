@@ -7,17 +7,25 @@ namespace TestFramework.Tests
 {
     public class RegistrationTest : _BaseUITest
     {
+        public RegistrationPage _registrationPage;
+        [SetUp]
+        public void BeforeTest()
+        {
+            _registrationPage = new RegistrationPage();
+        }
+
         [TestCaseSource(typeof(RegistrationTestData), nameof(RegistrationTestData.GetUserData))]
         public void Register(UserProvider userData)
         {
-            RegistrationPage registrationPage = new RegistrationPage();
-            registrationPage.InsertEmail(userData.Email);
-            registrationPage.SelectBirthDay(userData.Year, userData.Month, userData.Day);
-            registrationPage.SelectCurrency(userData.Currency);
-            registrationPage.InsertPassword(userData.Password);
-            registrationPage.SubmitRegistration();
+        
+            _registrationPage
+                .InsertEmail(userData.Email)
+                .SelectBirthDay(userData.Year, userData.Month, userData.Day)
+                .SelectCurrency(userData.Currency)
+                .InsertPassword(userData.Password)
+                .SubmitRegistration();
 
-            Assert.AreEqual(userData.Email,registrationPage.GetRegistredEmail());
+            Assert.AreEqual(userData.Email,_registrationPage.GetRegistredEmail());
         }
     }
 }

@@ -11,25 +11,29 @@ namespace TestFramework.Pages
         {
             _driver.Url = "http://air-pm-skeleton-bl.hp.consul/en/regmail";
         }
-        public void InsertEmail(string email)
+        public RegistrationPage InsertEmail(string email)
         {
             _driver.FindElement(By.Id("email")).SendKeys(email);
+            return this;
         }
-        public void SelectBirthDay(string year, string month, string day)
+        public RegistrationPage SelectBirthDay(string year, string month, string day)
         {
             SelectBirthday(day);
             SelectBirthMonth(month);
             SelectBirthYear(year);
+            return this;
         }
-        public void SelectCurrency(string currency)
+        public RegistrationPage SelectCurrency(string currency)
         {
             IWebElement selectcurrency = _driver.FindElement(By.Id("currencyId"));
             SelectElement select = new SelectElement(selectcurrency);
             select.SelectByValue(currency);
+            return this;
         }
-        public void InsertPassword(string password)
+        public RegistrationPage InsertPassword(string password)
         {
             _driver.FindElement(By.Id("password")).SendKeys(password);
+            return this;
         }
         public void SubmitRegistration()
         {
