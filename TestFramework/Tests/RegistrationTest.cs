@@ -8,10 +8,12 @@ namespace TestFramework.Tests
     public class RegistrationTest : _BaseUITest
     {
         public RegistrationPage _registrationPage;
+        public SuccsessRegistrationPage _successRegistrationPage;
         [SetUp]
         public void BeforeTest()
         {
             _registrationPage = new RegistrationPage();
+            _successRegistrationPage = new SuccsessRegistrationPage();
         }
 
         [TestCaseSource(typeof(RegistrationTestData), nameof(RegistrationTestData.GetUserData))]
@@ -25,7 +27,7 @@ namespace TestFramework.Tests
                 .InsertPassword(userData.Password)
                 .SubmitRegistration();
 
-            Assert.AreEqual(userData.Email,_registrationPage.GetRegistredEmail());
+            Assert.AreEqual(userData.Email,_successRegistrationPage.GetRegistredEmail());
         }
     }
 }

@@ -60,10 +60,5 @@ namespace TestFramework.Pages
             selectByYear.SelectByValue(year.ToString());
         }
 
-        public string GetRegistredEmail()
-        {
-            var element = _driver.FindElement(By.ClassName("short-registration-success__email"));
-            return element.Text; ;
-        }
     }
 }
