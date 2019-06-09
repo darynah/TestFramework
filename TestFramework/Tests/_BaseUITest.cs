@@ -16,7 +16,8 @@ namespace TestFramework.Tests
         [TearDown]
         public void GeneralAfterTest()
         {
-            DriverManager.GetDriver().Close();
+            DriverManager.GetDriver().Quit();
+
         }
     }
 }

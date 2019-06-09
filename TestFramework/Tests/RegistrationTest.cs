@@ -28,6 +28,7 @@ namespace TestFramework.Tests
                 .SubmitRegistration();
 
             Assert.AreEqual(userData.Email,_successRegistrationPage.GetRegistredEmail());
+            
         }
     }
 }
