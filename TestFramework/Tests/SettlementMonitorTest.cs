@@ -26,6 +26,7 @@ namespace TestFramework.Tests
         {
             var expected = new EventProvider();
             var actual =_settlementMonitorPage
+                .GoPage()
                 .Authorize()
                 .SelectCalendar()
                 .ClickOnCalendarDate()
@@ -51,6 +52,7 @@ namespace TestFramework.Tests
         {
             var expected = new BetInfoProvider();
             var actual = _settlementMonitorPage
+                .GoPage()
                 .Authorize()
                 .SelectCalendar()
                 .ClickOnCalendarDate()
@@ -74,20 +76,28 @@ namespace TestFramework.Tests
         [Test]
         public void Test3SettlementMonitorEvent()
         {
-            var expectedSegment = "Без статуса";
-            var expectedChannel = "Desktop";
-            _settlementMonitorPage.Authorize();
-            _settlenemtMonitorEventPage.ClickOnFilterButton()
+            var filteredDate = "20.05.2019";
+            var expectedChannel = "desktop_windows";
+            _settlenemtMonitorEventPage
+                .GoToPage()
+                .Authorize()
+                .ClickOnFilterButton()
                 .InsertDate("20.05.2019 02:30:00")
                 .InsertAmountFrom("2")
                 .InsertAmountTo("5")
-                .InsertSegment(expectedSegment)
-                .InsertChannel(expectedChannel)
+                .InsertSegment("Без статуса")
+                .ClickOnEmptySpaceInFilter("Segment")
+                .InsertChannel("Desktop")
+                .ClickOnEmptySpaceInFilter("Channel")
                 .PressConfirmButtonn()
                 .PressPlayerId();
-            Assert.True(_playerHistoryPage.IsActiveTabEquals("Bet History"));
+            _playerHistoryPage.GotoPage();
+            
+            
+            Assert.True(_playerHistoryPage.IsActiveTabEquals("BET HISTORY"));
             var actual = _playerHistoryPage.GetBetInfoFromPlayerHistory();
             Assert.AreEqual(expectedChannel, actual.channel);
+            var acceptedDate = actual.betAcceptTime;
         }
     }
 }

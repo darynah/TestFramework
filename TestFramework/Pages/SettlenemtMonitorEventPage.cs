@@ -8,10 +8,11 @@ namespace TestFramework.Pages
 {
     public class SettlenemtMonitorEventPage:_BasePage
     {
-        public SettlenemtMonitorEventPage()
+        public SettlenemtMonitorEventPage GoToPage()
         {
             _driver.Url =
-                "http://backoffice.kube.private/monitors/settlement/37157?betSettlementFilterText=Ливерпуль&betSettlementFilterFrom=1559336400000&betSettlementFilterTo=1559336400000";
+            "http://backoffice.kube.private/monitors/settlement/37157?betSettlementFilterText=Ливерпуль&betSettlementFilterFrom=1559336400000&betSettlementFilterTo=1559336400000";
+            return this;
         }
 
         public SettlenemtMonitorEventPage Authorize()
@@ -55,9 +56,16 @@ namespace TestFramework.Pages
             return this;
         }
 
+        public SettlenemtMonitorEventPage ClickOnEmptySpaceInFilter(string input)
+        {
+            var arrow = "//div[@class='event-bet-table-filter-form-control-wrapper' and label ='"+input+"']//div[@class ='multiselect__select']";
+            var optionBlockXpath = "$//div[@class='multiselect__content-wrapper' and not(contains(@style,'display: none;'))]";
+            _driver.FindElement(By.XPath(arrow)).Click();
+            return this;
+        }
+
         public SettlenemtMonitorEventPage InsertChannel(string channel)
         {
-
             var arrow = "//div[@class='event-bet-table-filter-form-control-wrapper' and label ='Channel']//div[@class ='multiselect__select']";
             var optionBlockXpath = $"//div[@class='multiselect__content-wrapper' and not(contains(@style,'display: none;'))]";
             _driver.FindElement(By.XPath(arrow)).Click();

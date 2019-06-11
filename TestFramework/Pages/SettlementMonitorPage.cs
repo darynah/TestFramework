@@ -9,10 +9,12 @@ namespace TestFramework.Pages
 {
     public class SettlementMonitorPage : _BasePage
     {
-        public SettlementMonitorPage()
+
+        public SettlementMonitorPage GoPage()
         {
             _driver.Url =
                 "http://backoffice.kube.private/monitors/settlement?betSettlementFilterFrom=1559854800000&betSettlementFilterTo=1559941199999";
+            return this;
         }
 
         public SettlementMonitorPage Authorize()
