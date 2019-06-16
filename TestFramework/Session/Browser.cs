@@ -23,7 +23,7 @@ namespace TestFramework.Session
                 var options = new ChromeOptions();
                 options.AddArgument("start-maximized");// fullscreen
                 driver = new ChromeDriver(Directory.GetCurrentDirectory(),options);
-                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
+                driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(50);
             }
             else
             {

@@ -9,11 +9,17 @@ namespace TestFramework.Pages
 {
     public class SettlementMonitorPage : _BasePage
     {
-
+        private IWebElement GetSportCategoryButton(string sportName) =>  _driver.FindElement(By.XPath($"//label[@class='title' and normalize-space(text())='{sportName}']"));
         public SettlementMonitorPage GoPage()
         {
             _driver.Url =
                 "http://backoffice.kube.private/monitors/settlement?betSettlementFilterFrom=1559854800000&betSettlementFilterTo=1559941199999";
+            return this;
+        }
+
+        public SettlementMonitorPage CloseDashboard()
+        {
+            _driver.FindElement(By.XPath("//section[@class='settlement-dashboard']//button[@class='icon transparent close-button']")).Click();
             return this;
         }
 
@@ -25,17 +31,22 @@ namespace TestFramework.Pages
             return this;
         }
 
-        public SettlementMonitorPage SelectCalendar()
+        public SettlementMonitorPage FilterByDateInCalendar(string date)
         {
-            _driver.FindElement(By.ClassName("mx-calendar-icon")).Click();
+            SelectCalendar();
+            ClickOnCalendarDate(date);
             return this;
         }
 
-        public SettlementMonitorPage ClickOnCalendarDate()
+        private void SelectCalendar()
         {
-            _driver.FindElement(By.XPath("//td[@title='01.06.19' and@class='cell cur-month']")).Click();
+            _driver.FindElement(By.ClassName("mx-calendar-icon")).Click();
+        }
+
+        private void ClickOnCalendarDate(string date)
+        {
+            _driver.FindElement(By.XPath($"//td[@title='{date}' and@class='cell cur-month']")).Click();
             _driver.FindElement(By.XPath("//button[@class='link transparent refresh']")).Click();
-            return this;
         }
 
         public SettlementMonitorPage ClickOnEvent()
@@ -52,12 +63,13 @@ namespace TestFramework.Pages
 
         public SettlementMonitorPage ClickOnEventInEventTree()
         {
-            _driver.FindElement(By.XPath("//label[@class='title' and normalize-space(text())='Футбол']")).Click();
-            _driver.FindElement(By.XPath("//label[@class='title' and normalize-space(text())='Австралия']")).Click();
+            var button = GetSportCategoryButton("Футбол");
+            button.Click();
+            button.FindElement(By.XPath("//label[@class='title' and normalize-space(text())='Австралия']")).Click();
             _driver.FindElement(
                     By.XPath("//label[@class='title' and text()[contains(.,'Виктория. Национальная Премьер-лига')]]"))
                 .Click();
-            _driver.FindElement(By.XPath("//span[@class='material-icons']")).Click();
+            ClickOnEvent();
             return this;
         }
 
