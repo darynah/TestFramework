@@ -7,27 +7,27 @@ using TestFramework.DataProvider;
 
 namespace TestFramework.Pages
 {
-    public class SettlementMonitorPage : _BasePage
+    public class SettlementMonitorPage : BasePage
     {
-        private IWebElement GetSportCategoryButton(string sportName) =>  _driver.FindElement(By.XPath($"//label[@class='title' and normalize-space(text())='{sportName}']"));
+        private IWebElement GetSportCategoryButton(string sportName) =>  Driver.FindElement(By.XPath($"//label[@class='title' and normalize-space(text())='{sportName}']"));
         public SettlementMonitorPage GoPage()
         {
-            _driver.Url =
+            Driver.Url =
                 "http://backoffice.kube.private/monitors/settlement?betSettlementFilterFrom=1559854800000&betSettlementFilterTo=1559941199999";
             return this;
         }
 
         public SettlementMonitorPage CloseDashboard()
         {
-            _driver.FindElement(By.XPath("//section[@class='settlement-dashboard']//button[@class='icon transparent close-button']")).Click();
+            Driver.FindElement(By.XPath("//section[@class='settlement-dashboard']//button[@class='icon transparent close-button']")).Click();
             return this;
         }
 
         public SettlementMonitorPage Authorize()
         {
-            _driver.FindElement(By.XPath("//input[@placeholder=\'Username\']")).SendKeys("admin@betlab");
-            _driver.FindElement(By.XPath("//input[@type=\'password\']")).SendKeys("abc");
-            _driver.FindElement(By.XPath("//button[@type=\'submit\']")).Click();
+            Driver.FindElement(By.XPath("//input[@placeholder=\'Username\']")).SendKeys("admin@betlab");
+            Driver.FindElement(By.XPath("//input[@type=\'password\']")).SendKeys("abc");
+            Driver.FindElement(By.XPath("//button[@type=\'submit\']")).Click();
             return this;
         }
 
@@ -40,24 +40,24 @@ namespace TestFramework.Pages
 
         private void SelectCalendar()
         {
-            _driver.FindElement(By.ClassName("mx-calendar-icon")).Click();
+            Driver.FindElement(By.ClassName("mx-calendar-icon")).Click();
         }
 
         private void ClickOnCalendarDate(string date)
         {
-            _driver.FindElement(By.XPath($"//td[@title='{date}' and@class='cell cur-month']")).Click();
-            _driver.FindElement(By.XPath("//button[@class='link transparent refresh']")).Click();
+            Driver.FindElement(By.XPath($"//td[@title='{date}' and@class='cell cur-month']")).Click();
+            Driver.FindElement(By.XPath("//button[@class='link transparent refresh']")).Click();
         }
 
         public SettlementMonitorPage ClickOnEvent()
         {
-            _driver.FindElement(By.XPath("//span[@class='material-icons']")).Click();
+            Driver.FindElement(By.XPath("//span[@class='material-icons']")).Click();
             return this;
         }
 
         public SettlementMonitorPage ClickOnEventInRightPanel()
         {
-            _driver.FindElement(By.XPath("//section[@class='settlement-event-list pinned']//div[@class='alert-item'][1]")).Click();
+            Driver.FindElement(By.XPath("//section[@class='settlement-event-list pinned']//div[@class='alert-item'][1]")).Click();
             return this;
         }
 
@@ -66,7 +66,7 @@ namespace TestFramework.Pages
             var button = GetSportCategoryButton("Футбол");
             button.Click();
             button.FindElement(By.XPath("//label[@class='title' and normalize-space(text())='Австралия']")).Click();
-            _driver.FindElement(
+            Driver.FindElement(
                     By.XPath("//label[@class='title' and text()[contains(.,'Виктория. Национальная Премьер-лига')]]"))
                 .Click();
             ClickOnEvent();
@@ -75,43 +75,45 @@ namespace TestFramework.Pages
 
         public SettlementMonitorPage SelectEtapSobitiya()
         {
-            _driver.FindElement(By.XPath("//div[@class='bo-multiselect settlement-multiselect'][3]//*[@class = 'multiselect__select']")).Click();
-            _driver.FindElement(By.XPath("//*[text()='Finished']")).Click();
+            Driver.FindElement(By.XPath("//div[@class='bo-multiselect settlement-multiselect'][3]//*[@class = 'multiselect__select']")).Click();
+            Driver.FindElement(By.XPath("//*[text()='Finished']")).Click();
             return this;
         }
 
         public EventProvider SelectEvent()
         {
+            var element = "//section[@class='settlement-event-list pinned']//div[@class='alerts-block']//i['warning']";
+            Wait.UntilPageIsReady(elementToBeReady:element, baseTimeOut: 15);
             return new EventProvider 
             {
 
-                eventTime = _driver
+                eventTime = Driver
                     .FindElement(By.XPath(
                         "//section[@class='settlement-event-list pinned']//div[@class='event-time']")).Text,
-                eventDate = _driver
+                eventDate = Driver
                     .FindElement(By.XPath(
                         "//section[@class='settlement-event-list pinned']//div[@class='event-date']")).Text,
-                eventName = _driver
+                eventName = Driver
                     .FindElement(By.XPath(
                         "//section[@class='settlement-event-list pinned']//div[@class='event-title has-tooltip']"))
                     .Text,
-                eventDescription = _driver
+                eventDescription = Driver
                     .FindElement(By.XPath(
                         "//section[@class='settlement-event-list pinned']//div[@class='event-description has-tooltip']"))
                     .Text,
-                eventAlert = _driver
+                eventAlert = Driver
                     .FindElement(By.XPath(
                         "//section[@class='settlement-event-list pinned']//div[@class='alerts-block']//i['warning']"))
                     .Text,
-                eventStage = _driver
+                eventStage = Driver
                     .FindElement(By.XPath(
                         "//section[@class='settlement-event-list pinned']//div[@class='event-stage']//div[@class='column score']//span[@class]"))
                     .Text,
-                eventScore = _driver
+                eventScore = Driver
                     .FindElement(By.XPath(
                         "//section[@class='settlement-event-list pinned']//div[@class='scoreBoard']//div[@class='column score']//span[@class]"))
                     .Text,
-                eventSettlementState = _driver
+                eventSettlementState = Driver
                     .FindElement(By.XPath(
                         "//section[@class='settlement-event-list pinned']//section[@class='event-settlement-state']/span[2]"))
                     .Text
@@ -120,14 +122,14 @@ namespace TestFramework.Pages
 
         public SettlementMonitorPage InputEventName(string eventName)
         {
-            _driver.FindElement(By.XPath("//input[@placeholder ='Найти событие']")).SendKeys(eventName);
+            Driver.FindElement(By.XPath("//input[@placeholder ='Найти событие']")).SendKeys(eventName);
             return this;
         }
 
 
         public SettlementMonitorPage ClickOnBetInfo()
         {
-            _driver.FindElement(By.XPath("//section[@class='event-bet-table-wrapper']//div/table[@class='mn-table bet-table']//tr[1]//button[@class='transparent icon']")).Click();
+            Driver.FindElement(By.XPath("//section[@class='event-bet-table-wrapper']//div/table[@class='mn-table bet-table']//tr[1]//button[@class='transparent icon']")).Click();
             return this;
         }
 
@@ -136,13 +138,13 @@ namespace TestFramework.Pages
         {
             return new BetInfoProvider
             {
-                eventTime = _driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[1]")).Text,
-                betStatus = _driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[2]")).Text,
-                betResult = _driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[3]")).Text,
-                resultSource = _driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[4]")).Text,
-                eventName = _driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[5]")).Text,
-                marketName = _driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[6]")).Text,
-                comment = _driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[7]")).Text
+                eventTime = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[1]")).Text,
+                betStatus = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[2]")).Text,
+                betResult = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[3]")).Text,
+                resultSource = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[4]")).Text,
+                eventName = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[5]")).Text,
+                marketName = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[6]")).Text,
+                comment = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[7]")).Text
             };
         }
     }

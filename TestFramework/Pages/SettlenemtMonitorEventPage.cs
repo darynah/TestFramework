@@ -6,42 +6,50 @@ using System;
 
 namespace TestFramework.Pages
 {
-    public class SettlenemtMonitorEventPage:_BasePage
+    public class SettlenemtMonitorEventPage:BasePage
     {
         public SettlenemtMonitorEventPage GoToPage()
         {
-            _driver.Url =
+            Driver.Url =
             "http://backoffice.kube.private/monitors/settlement/37157?betSettlementFilterText=Ливерпуль&betSettlementFilterFrom=1559336400000&betSettlementFilterTo=1559336400000";
+            return this;
+        }
+
+        public SettlenemtMonitorEventPage CloseDashboard()
+        {
+            Driver.FindElement(By.XPath("//section[@class='settlement-dashboard']//button[@class='icon transparent close-button']")).Click();
             return this;
         }
 
         public SettlenemtMonitorEventPage Authorize()
         {
-            _driver.FindElement(By.XPath("//input[@placeholder=\'Username\']")).SendKeys("admin@betlab");
-            _driver.FindElement(By.XPath("//input[@type=\'password\']")).SendKeys("abc");
-            _driver.FindElement(By.XPath("//button[@type=\'submit\']")).Click();
+            Driver.FindElement(By.XPath("//input[@placeholder=\'Username\']")).SendKeys("admin@betlab");
+            Driver.FindElement(By.XPath("//input[@type=\'password\']")).SendKeys("abc");
+            Driver.FindElement(By.XPath("//button[@type=\'submit\']")).Click();
             return this;
         }
 
         public SettlenemtMonitorEventPage ClickOnFilterButton()
         {
-            _driver.FindElement(By.XPath("//section[@class = 'event-bet-table-filter-wrapper']/button")).Click();
+            var button = "//section[@class = 'event-bet-table-filter-wrapper']/button";
+            Wait.UntilPageIsReady(elementToBeReady: button);
+            Driver.FindElement(By.XPath(button)).Click();
             return this;
         }
 
         public SettlenemtMonitorEventPage InsertDate(string dateFrom)
         {
-            _driver.FindElement(By.XPath("//div[@class='custom-frame']//div[@class='custom-frame-from']//div[@class='mx-input-wrapper']//input[@type='text']")).SendKeys(dateFrom);
+            Driver.FindElement(By.XPath("//div[@class='custom-frame']//div[@class='custom-frame-from']//div[@class='mx-input-wrapper']//input[@type='text']")).SendKeys(dateFrom);
             return this;
         }
         public SettlenemtMonitorEventPage InsertAmountFrom(string amountFrom)
         {
-            _driver.FindElement(By.XPath("//input[@placeholder='От']")).SendKeys(amountFrom);
+            Driver.FindElement(By.XPath("//input[@placeholder='От']")).SendKeys(amountFrom);
             return this;
         }
         public SettlenemtMonitorEventPage InsertAmountTo(string amountTo)
         {
-            _driver.FindElement(By.XPath("//input[@placeholder='До']")).SendKeys(amountTo);
+            Driver.FindElement(By.XPath("//input[@placeholder='До']")).SendKeys(amountTo);
             return this;
         }
 
@@ -49,8 +57,8 @@ namespace TestFramework.Pages
         {
             var arrow = "//div[@class='event-bet-table-filter-form-control-wrapper' and label ='Segment']//div[@class ='multiselect__select']";
             var optionBlockXpath = $"//div[@class='multiselect__content-wrapper' and not(contains(@style,'display: none;'))]";
-            _driver.FindElement(By.XPath(arrow)).Click();
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(2000));
+            Driver.FindElement(By.XPath(arrow)).Click();
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(2000));
             var optionBlock = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(optionBlockXpath)));
             optionBlock.FindElement(By.XPath($".//span[text()='{segment}']/..")).Click();
             return this;
@@ -60,7 +68,7 @@ namespace TestFramework.Pages
         {
             var arrow = "//div[@class='event-bet-table-filter-form-control-wrapper' and label ='"+input+"']//div[@class ='multiselect__select']";
             var optionBlockXpath = "$//div[@class='multiselect__content-wrapper' and not(contains(@style,'display: none;'))]";
-            _driver.FindElement(By.XPath(arrow)).Click();
+            Driver.FindElement(By.XPath(arrow)).Click();
             return this;
         }
 
@@ -68,21 +76,24 @@ namespace TestFramework.Pages
         {
             var arrow = "//div[@class='event-bet-table-filter-form-control-wrapper' and label ='Channel']//div[@class ='multiselect__select']";
             var optionBlockXpath = $"//div[@class='multiselect__content-wrapper' and not(contains(@style,'display: none;'))]";
-            _driver.FindElement(By.XPath(arrow)).Click();
-            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(2000));
+            Wait.UntilPageIsReady(3,elementToBeReady: arrow);
+            Driver.FindElement(By.XPath(arrow)).Click();
+            WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(2000));
             var optionBlock = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(optionBlockXpath)));
             optionBlock.FindElement(By.XPath($".//span[text()='{channel}']/..")).Click();  
             return this;
         }
         public SettlenemtMonitorEventPage PressConfirmButtonn()
         {
-            _driver.FindElement(By.XPath("//button[@class='warning raised']")).Click();
+            var button = "//button[@class='warning raised']";
+            Wait.UntilPageIsReady(3, elementToBeReady: button);
+            Driver.FindElement(By.XPath("//button[@class='warning raised']")).Click();
             return this;
         }
 
         public SettlenemtMonitorEventPage PressPlayerId()
         {
-            _driver.FindElement(By.XPath("//section[@class='event-bet-table-wrapper']/div/table[@class='mn-table bet-table']/tbody/tr[1]/td[3]")).Click();
+            Driver.FindElement(By.XPath("//section[@class='event-bet-table-wrapper']/div/table[@class='mn-table bet-table']/tbody/tr[1]/td[3]")).Click();
             return this;
         }
     }

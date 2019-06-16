@@ -5,7 +5,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace TestFramework.Pages
 {
-    public class SuccsessRegistrationPage : _BasePage
+    public class SuccsessRegistrationPage : BasePage
     {
         private readonly By _headerUserName;
 
@@ -16,7 +16,7 @@ namespace TestFramework.Pages
 
         public string GetRegistredEmail()
         {
-            var element = _driver.FindElement(By.ClassName("short-registration-success__email"));
+            var element = Driver.FindElement(By.ClassName("short-registration-success__email"));
             return element.Text; ;
         }
     }

@@ -1,9 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using System.Xml.Linq;
 using TestFramework.DataProvider;
 using TestFramework.Pages;
 using static TestFramework.DataProvider.ChannelMapper;
@@ -32,9 +29,11 @@ namespace TestFramework.Tests
         public void Test1SettlementMonitorEvent()
         {
             var expected = new EventProvider();
+            _authorizationPage
+                .GoToPage()
+                .Authorize();
             var actual = _settlementMonitorPage
                 .GoPage()
-                .Authorize()
                 .CloseDashboard()
                 .FilterByDateInCalendar("01.06.19")
                 .ClickOnEventInEventTree()
@@ -57,10 +56,12 @@ namespace TestFramework.Tests
         [Test]
         public void Test2SettlementMonitorEvent()
         {
+            _authorizationPage
+                .GoToPage()
+                .Authorize();
             var expected = new BetInfoProvider();
             var actual = _settlementMonitorPage
                 .GoPage()
-                .Authorize()
                 .CloseDashboard()
                 .FilterByDateInCalendar("01.06.19")
                 .InputEventName("Мельбурн")
@@ -89,10 +90,12 @@ namespace TestFramework.Tests
             var expectedChannel = ToMapChannel(insertedChannel);
             var insertedDate = "20.05.2019 02:30:00";
             DateTime expectedDate = DateTime.Parse(insertedDate, CultureInfo.CreateSpecificCulture("de-DE"));
-
+            _authorizationPage
+                .GoToPage()
+                .Authorize();
             _settlenemtMonitorEventPage
                 .GoToPage()
-                .Authorize()
+                .CloseDashboard()
                 .ClickOnFilterButton()
                 .InsertDate(insertedDate)
                 .InsertAmountFrom("2")
@@ -119,25 +122,16 @@ namespace TestFramework.Tests
         {
             string dateFrom = "01.06.2019 00:00:00";
             string dateTo = "04.06.2019 00:00:00";
+            string playerId = "087210296";
             _authorizationPage.GoToPage();
             _authorizationPage.Authorize();
             _BMEPage.GoToPage();
             _BMEPage.Filter("Время приема", "Временной интервал");
             _BMEPage.FilterByDate(dateFrom, dateTo);
-            //_BMEPage.ClickonFilterArrow("ID игрока");
-            //_BMEPage.InsertPlayerID("087210296");
+            _BMEPage.InsertPlayerID(playerId);
             _BMEPage.Submit();
-        }
-
-        [Test]
-        public void Test401BME()
-        {
-            string actualDate = "01.06.2019 00:30:00";
-            _authorizationPage.GoToPage();
-            _authorizationPage.Authorize();
-            _BMEPage.GoToPageFilter();
-            Assert.True(_BMEPage.PlayerIdAll("087210296"));
-            Assert.True(_BMEPage.AcceptTimeAll(actualDate));
+            Assert.True(_BMEPage.PlayerIdAll(playerId));
+            Assert.True(_BMEPage.AcceptTimeAll(dateFrom));
         }
     }
 }

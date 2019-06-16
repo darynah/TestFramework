@@ -8,16 +8,16 @@ using TestFramework.DataProvider;
 
 namespace TestFramework.Pages
 {
-    public class PlayerHistoryPage : _BasePage
+    public class PlayerHistoryPage : BasePage
     {
         public PlayerHistoryPage GotoPage()
         {
-            _driver.SwitchTo().Window(_driver.WindowHandles.Last());
+            Driver.SwitchTo().Window(Driver.WindowHandles.Last());
             return this;
         }
         public bool IsActiveTabEquals(string expectedTabName)
         {
-            var wait = new WebDriverWait(_driver, TimeSpan.FromMilliseconds(5000));
+            var wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(5000));
             var activeTab = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
                 .ElementExists(By.XPath("//li[@class='link-active']/a[text()]")));
             return activeTab.Text.Trim().Equals(expectedTabName);
@@ -28,9 +28,9 @@ namespace TestFramework.Pages
         {
             return new BetInfoPlayerHistoryProvider
             {
-                betAcceptTime = _driver.FindElement(By.XPath("//div[@class='bo-table']/div[2]/div[1]/table/tbody/tr[1]/td[@class='betAcceptTime']")).Text,
+                betAcceptTime = Driver.FindElement(By.XPath("//div[@class='bo-table']/div[2]/div[1]/table/tbody/tr[1]/td[@class='betAcceptTime']")).Text,
                 //betNumber = _driver.FindElement(By.XPath("//div[@class='bo-table']/div[2]/div[1]/table/tbody/tr[1]/td[@class='betNumber']")).Text,
-                channel = _driver.FindElement(By.XPath("//div[@class='bo-table']/div[2]/div[1]/table/tbody/tr[1]/td[@class='channel']")).Text,
+                channel = Driver.FindElement(By.XPath("//div[@class='bo-table']/div[2]/div[1]/table/tbody/tr[1]/td[@class='channel']")).Text,
                 //eventStartTime = _driver.FindElement(By.XPath("//div[@class='bo-table']/div[2]/div[1]/table/tbody/tr[1]/td[@class='eventStartTime']")).Text,
                 //eventDescription = _driver.FindElement(By.XPath("//div[@class='bo-table']/div[2]/div[1]/table/tbody/tr[1]/td[@class='eventDescription']")).Text,
                 //eventName = _driver.FindElement(By.XPath("//div[@class='bo-table']/div[2]/div[1]/table/tbody/tr[1]/td[@class='eventName']")).Text,
