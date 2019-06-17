@@ -105,4 +105,3 @@ C:\Users\vilsh\source\repos\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\
 C:\Users\vilsh\source\repos\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.AssemblyInfo.cs
 C:\Users\vilsh\source\repos\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.dll
 C:\Users\vilsh\source\repos\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.pdb
-C:\Users\vilsh\source\repos\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.csprojAssemblyReference.cache
