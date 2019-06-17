@@ -3,12 +3,14 @@ using System;
 using System.Globalization;
 using TestFramework.DataProvider;
 using TestFramework.Pages;
+using TestFramework.Requests;
 using static TestFramework.DataProvider.ChannelMapper;
 
 namespace TestFramework.Tests
 {
     public class SettlementMonitorTest : _BaseUITest
     {
+        public SettlementMonitorRequest _settlementMonitorRequest;
         public AuthorizationMonitor _authorizationPage;
         public SettlementMonitorPage _settlementMonitorPage;
         public SettlenemtMonitorEventPage _settlenemtMonitorEventPage;
@@ -18,6 +20,7 @@ namespace TestFramework.Tests
         [SetUp]
         public void BeforeTest()
         {
+            _settlementMonitorRequest = new SettlementMonitorRequest();
             _authorizationPage = new AuthorizationMonitor();
             _settlementMonitorPage = new SettlementMonitorPage();
             _settlenemtMonitorEventPage = new SettlenemtMonitorEventPage();
@@ -132,6 +135,16 @@ namespace TestFramework.Tests
             _BMEPage.Submit();
             Assert.True(_BMEPage.PlayerIdAll(playerId));
             Assert.True(_BMEPage.AcceptTimeAll(dateFrom));
+        }
+
+        [Test]
+        public void Test5BEFE()
+
+        {
+            var loginProviderMonitor = new LoginProviderMonitor();
+            _settlementMonitorRequest.AuthorizeInMonitor(loginProviderMonitor);
+            _settlementMonitorRequest.RequestBetViewBets();
+
         }
     }
 }

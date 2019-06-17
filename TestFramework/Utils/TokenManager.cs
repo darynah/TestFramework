@@ -36,5 +36,20 @@ namespace TestFramework.Utils
             var token = resultJObject["token"].ToString();
             return token;
         }
+
+        public static string AuthorizeMonitor(LoginProviderMonitor login)//
+        {
+            ApiClient pmClient = new ApiClient("http://backoffice.kube.private");
+
+            var response = pmClient.Post("/api/sso-operator/Login", JsonConvert.SerializeObject(login));//
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Authorization is not success");
+            }
+            var result = response.Content.ReadAsStringAsync().Result;
+            var resultJObject = JsonConvert.DeserializeObject<JObject>(result);
+            var token = resultJObject["token"].ToString();
+            return token;
+        }
     }
 }

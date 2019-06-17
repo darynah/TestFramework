@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace TestFramework.Utils
 {
@@ -30,5 +31,15 @@ namespace TestFramework.Utils
             var result = _client.GetAsync(requestUri).GetAwaiter().GetResult();
             return result;
         }
+
+        public async Task<string> PostWithToken(string requestUri, string token, string jsonObject)
+        {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var content = new StringContent(jsonObject.ToString(), Encoding.UTF8, "application/json");
+            var response = _client.PostAsync(requestUri, content).Result;
+            var contents = await response.Content.ReadAsStringAsync();
+            return contents;
+        }
+
     }
 }
