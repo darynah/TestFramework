@@ -1,19 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
+﻿using OpenQA.Selenium;
 using TestFramework.DataProvider;
 
-namespace TestFramework.Pages
+namespace TestFramework.Pages.Monitor
 {
     public class SettlementMonitorPage : BasePage
     {
-        private IWebElement GetSportCategoryButton(string sportName) =>  Driver.FindElement(
-            By.XPath($"//label[@class='title' and normalize-space(text())='{sportName}']"));
+        private string CloseDashboardXpath =
+            "//section[@class='settlement-dashboard']//button[@class='icon transparent close-button']";
 
-        private IWebElement CloseDashboaradButton => Driver.FindElement(
-            By.XPath("//section[@class='settlement-dashboard']//button[@class='icon transparent close-button']"));
+        private IWebElement GetSportCategoryButton(string sportName) =>
+            Driver.FindElement(By.XPath($"//label[@class='title' and normalize-space(text())='{sportName}']"));
+        private IWebElement CloseDashboaradButton =>
+            Driver.FindElement(By.XPath(CloseDashboardXpath));
+        private IWebElement GetCalendarIcon => Driver.FindElement(By.ClassName("mx-calendar-icon"));
+        private IWebElement GetCalendarDate(string date) =>
+            Driver.FindElement(By.XPath($"//td[@title='{date}' and@class='cell cur-month']"));
+        private IWebElement GetCalendarRefresh =>
+            Driver.FindElement(By.XPath("//button[@class='link transparent refresh']"));
+        private IWebElement GetEvenTreeCheckbox => Driver.FindElement(By.XPath("//span[@class='material-icons']"));
+        private IWebElement GetPinnedEvent =>
+            Driver.FindElement(By.XPath("//section[@class='settlement-event-list pinned']//div[@class='alert-item'][1]"));
+        private IWebElement PinnedElementBlock =>
+            Driver.FindElement(By.XPath("//section[@class='settlement-event-list pinned']"));
 
         public SettlementMonitorPage GoPage()
         {
@@ -24,15 +32,7 @@ namespace TestFramework.Pages
 
         public SettlementMonitorPage CloseDashboard()
         {
-            CloseDashboaradButton.Click();
-            return this;
-        }
-
-        public SettlementMonitorPage Authorize()
-        {
-            Driver.FindElement(By.XPath("//input[@placeholder=\'Username\']")).SendKeys("admin@betlab");
-            Driver.FindElement(By.XPath("//input[@type=\'password\']")).SendKeys("abc");
-            Driver.FindElement(By.XPath("//button[@type=\'submit\']")).Click();
+            Wait.UntilElementReady(Driver, By.XPath(CloseDashboardXpath)).Click();
             return this;
         }
 
@@ -45,83 +45,68 @@ namespace TestFramework.Pages
 
         private void SelectCalendar()
         {
-            Driver.FindElement(By.ClassName("mx-calendar-icon")).Click();
+            GetCalendarIcon.Click();
         }
 
         private void ClickOnCalendarDate(string date)
         {
-            Driver.FindElement(By.XPath($"//td[@title='{date}' and@class='cell cur-month']")).Click();
-            Driver.FindElement(By.XPath("//button[@class='link transparent refresh']")).Click();
+            GetCalendarDate(date).Click();
+            GetCalendarRefresh.Click();
         }
 
         public SettlementMonitorPage ClickOnEvent()
         {
-            Driver.FindElement(By.XPath("//span[@class='material-icons']")).Click();
+            GetEvenTreeCheckbox.Click();
             return this;
         }
 
         public SettlementMonitorPage ClickOnEventInRightPanel()
         {
-            Driver.FindElement(By.XPath("//section[@class='settlement-event-list pinned']//div[@class='alert-item'][1]")).Click();
+            GetPinnedEvent.Click();
             return this;
         }
 
-        public SettlementMonitorPage ClickOnEventInEventTree()
+        public SettlementMonitorPage RefreshEvenTree()
         {
-            var button = GetSportCategoryButton("Футбол");
+            Driver.FindElement(By.XPath("//button[@class='link transparent refresh']")).Click();
+            return this;
+        }
+
+        public SettlementMonitorPage ClickOnEventInEventTree( string sportName, string category, string tournament)
+        {
+            var button = GetSportCategoryButton(sportName);
             button.Click();
-            button.FindElement(By.XPath("//label[@class='title' and normalize-space(text())='Австралия']")).Click();
+            button.FindElement(By.XPath($"//label[@class='title' and normalize-space(text())='{category}']")).Click();
             Driver.FindElement(
-                    By.XPath("//label[@class='title' and text()[contains(.,'Виктория. Национальная Премьер-лига')]]"))
+                    By.XPath($"//label[@class='title' and text()[contains(.,'{tournament}')]]"))
                 .Click();
             ClickOnEvent();
             return this;
         }
 
-        public SettlementMonitorPage SelectEtapSobitiya()
+        public SettlementMonitorPage SelectEtapSobitiya(string etap)
         {
             Driver.FindElement(By.XPath("//div[@class='bo-multiselect settlement-multiselect'][3]//*[@class = 'multiselect__select']")).Click();
-            Driver.FindElement(By.XPath("//*[text()='Finished']")).Click();
+            Driver.FindElement(By.XPath($"//*[text()='{etap}']")).Click();
             return this;
         }
 
         public EventProvider SelectEvent()
         {
             var element = "//section[@class='settlement-event-list pinned']//div[@class='alerts-block']//i['warning']";
-            Wait.UntilPageIsReady(elementToBeReady:element, baseTimeOut: 15);
+            Wait.UntilPageIsReady(elementToBeReady: element, baseTimeOut: 15);
             return new EventProvider
             {
 
-                EventTime = Driver
-                    .FindElement(By.XPath(
-                        "//section[@class='settlement-event-list pinned']//div[@class='event-time']")).Text,
-                EventDate = Driver
-                    .FindElement(By.XPath(
-                        "//section[@class='settlement-event-list pinned']//div[@class='event-date']")).Text,
-                EventName = Driver
-                    .FindElement(By.XPath(
-                        "//section[@class='settlement-event-list pinned']//div[@class='event-title has-tooltip']"))
-                    .Text,
-                EventDescription = Driver
-                    .FindElement(By.XPath(
-                        "//section[@class='settlement-event-list pinned']//div[@class='event-description has-tooltip']"))
-                    .Text,
-                EventAlert = Driver
-                    .FindElement(By.XPath(
-                        "//section[@class='settlement-event-list pinned']//div[@class='alerts-block']//i['warning']"))
-                    .Text,
-                EventStage = Driver
-                    .FindElement(By.XPath(
-                        "//section[@class='settlement-event-list pinned']//div[@class='event-stage']//div[@class='column score']//span[@class]"))
-                    .Text,
-                EventScore = Driver
-                    .FindElement(By.XPath(
-                        "//section[@class='settlement-event-list pinned']//div[@class='scoreBoard']//div[@class='column score']//span[@class]"))
-                    .Text,
-                EventSettlementState = Driver
-                    .FindElement(By.XPath(
-                        "//section[@class='settlement-event-list pinned']//section[@class='event-settlement-state']/span[2]"))
-                    .Text
+                EventTime = PinnedElementBlock.FindElement(By.XPath(".//div[@class='event-time']")).Text,
+                EventDate = PinnedElementBlock.FindElement(By.XPath(".//div[@class='event-date']")).Text,
+                EventName = PinnedElementBlock.FindElement(By.XPath(".//div[@class='event-title has-tooltip']")).Text,
+                EventDescription = PinnedElementBlock.FindElement(By.XPath(".//div[@class='event-description has-tooltip']")) .Text,
+                EventAlert = PinnedElementBlock.FindElement(By.XPath(".//div[@class='alerts-block']//i['warning']")).Text,
+                EventStage = PinnedElementBlock.FindElement(By.XPath(".//div[@class='column score']//span[@class]")).Text,
+                EventScore = PinnedElementBlock.FindElement(By.XPath(".//div[@class='scoreBoard']//div[@class='column score']//span[@class]")).Text,
+                EventSettlementState = 
+                    Driver.FindElement(By.XPath("//section[@class='settlement-event-list pinned']//section[@class='event-settlement-state']/span[2]")).Text
             };
         }
 

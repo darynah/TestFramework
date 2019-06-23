@@ -8,7 +8,7 @@ namespace TestFramework.DataProvider
     {
         public string BetAcceptTime { get; set; }
         public string BetNumber { get; set; }
-        public string channel { get; set; }
+        public string Channel { get; set; }
         public string EventStartTime { get; set; }
         public string EventDescription { get; set; }
         public string EventName { get; set; }

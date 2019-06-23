@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
@@ -11,8 +10,26 @@ namespace TestFramework.Pages
     public class BMEPage : BasePage
     {
         private IWebElement GetSubmitButton => Driver.FindElement(By.XPath("//button[@type='submit']"));
-        private IWebElement GetFilterArrowButton(string sectionName) =>
-            Driver.FindElement(By.XPath($"//div[@class='form-row' and sectionName ='{sectionName}']//div[@class ='multiselect__select']"));
+        private IWebElement GetFilterArrowButton(string sectionName) => Driver.FindElement(By.XPath( $"//div[@class='form-row' and sectionName ='{sectionName}']//div[@class ='multiselect__select']"));
+        private IWebElement FilterByDate(string parameter) => Driver.FindElement(By.XPath( $"//div[@class='form-row' and label ='Время приема']//div[@class='custom-frame-{parameter}']//input"));
+        private IWebElement GetFilterSection => Driver.FindElement(By.XPath("//label[@class='field-title']"));
+
+        private string FilterByPlayerInputXpath => "//div[contains(@class,'bo-player-id')]";
+        private string FilterByPlayerInputIDXpath => "//input[contains(@placeholder, 'ID')]";
+        private string FilterDropdownIsEmptyXpath => "//div[not(contains(@style,'display: none'))]/ul[contains(@class,'multiselect__content')]";
+        private string FilterCloseDropdownXpath => "./li[@class='multiselect__element']";
+        private string FilterDropdownXpath => $"//div[@class='multiselect__content-wrapper' and not(contains(@style,'display: none;'))]";
+
+        private string FilterElementInDropdownXpath(string segment) => $".//span[text()='{segment}']/..";
+        private string GetColumnAdressXpath(string columnName) => $"//div[@class='bet-view-table-wrapper current']//table[@id='betViewTable']//td[@class='bet-view-table-cell {columnName}']//div";
+        private string FilterArrowXpath(string label) => $"//div[@class='form-row' and label ='{label}']//span[@class ='multiselect__single']";
+
+
+        public ReadOnlyCollection<IWebElement> GetBetViewTableData(string tableColumnAdress)
+        {
+            ReadOnlyCollection<IWebElement> links = Driver.FindElements(By.XPath(tableColumnAdress));
+            return links;
+        }
 
         public BMEPage GoToPage()
         {
@@ -21,14 +38,7 @@ namespace TestFramework.Pages
             return this;
         }
 
-        public BMEPage GoToPageFilter()
-        {
-            Driver.Url =
-                "http://backoffice.kube.private/monitors/bets?tradingTypeId=&sport=&currency=&playerId=087210296&betType=&resultId=&afs=&channel=&segmentIds=&traderIds=&categoryIds=&betSize=&eventType=&marketIds=&period=&tournament=&team=&value=&betTime=%D0%9F%D1%80%D0%B8%D0%B5%D0%BC&unsettledDuration=&acceptTimeFrom=1559338200000&acceptTimeTo=1559597400000&timestamp=1560627400695";
-            return this;
-        }
-
-        public BMEPage ClickSubmit()
+        public BMEPage ClickSubmitInFilter()
         {
             GetSubmitButton.Click();
             return this;
@@ -40,56 +50,42 @@ namespace TestFramework.Pages
             return this;
         }
 
-
-        public BMEPage Filter(string label, string segment)
+        public BMEPage FilterByItem(string label, string segment)
         {
-            var arrow = $"//div[@class='form-row' and label ='{label}']//span[@class ='multiselect__single']";
-            Wait.UntilPageIsReady(elementToBeReady: arrow);
-            var optionBlockXpath =
-                $"//div[@class='multiselect__content-wrapper' and not(contains(@style,'display: none;'))]";
-            var arrowXPAth = Driver.FindElement(By.XPath(arrow));
+            Wait.UntilPageIsReady(elementToBeReady: FilterArrowXpath(label));
+            var arrowXPAth = Driver.FindElement(By.XPath(FilterArrowXpath(label)));
             MoveToElement(arrowXPAth).Click();
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(2000));
-            var optionBlock =
-                wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(optionBlockXpath)));
-            optionBlock.FindElement(By.XPath($".//span[text()='{segment}']/..")).Click();
+            var filterOptionBlock = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(FilterDropdownXpath)));
+            filterOptionBlock.FindElement(By.XPath(FilterElementInDropdownXpath(segment))).Click();
             return this;
         }
 
         public BMEPage FilterByDate(string dateFrom, string dateTo)
         {
-            var inputFrom =
-                Driver.FindElement(By.XPath(
-                    "//div[@class='form-row' and label ='Время приема']//div[@class='custom-frame-from']//input"));
+            var inputFrom = FilterByDate("from");
             inputFrom.SendKeys(Keys.Control + "a");
             inputFrom.SendKeys(Keys.Delete);
             inputFrom.SendKeys(dateFrom);
-            Driver.FindElement(
-                    By.XPath(
-                        "//div[@class='form-row' and label ='Время приема']//div[@class='custom-frame-to']//input"))
-                .SendKeys(dateTo);
-            Driver.FindElement(By.XPath("//label[@class='field-title']")).Click();
+            FilterByDate("to").SendKeys(dateTo);
+            GetFilterSection.Click();
             return this;
         }
 
         public BMEPage InsertPlayerID(string playerId)
         {
-            var baseDropdown = "//div[contains(@class,'bo-player-id')]";
-            Driver.FindElement(By.XPath(baseDropdown + "//input[contains(@placeholder, 'ID')]/..")).Click();
-            Driver.FindElement(By.XPath(baseDropdown + "//input[contains(@placeholder, 'ID')]")).SendKeys(playerId);
+            Driver.FindElement(By.XPath(FilterByPlayerInputXpath + FilterByPlayerInputIDXpath + "/..")).Click();
+            Driver.FindElement(By.XPath(FilterByPlayerInputXpath + FilterByPlayerInputIDXpath)).SendKeys(playerId);
             WebDriverWait wait = new WebDriverWait(Driver, TimeSpan.FromMilliseconds(2000));
             var suggestBlock = wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions
-                .ElementExists(By.XPath(baseDropdown +
-                                        "//div[not(contains(@style,'display: none'))]/ul[contains(@class,'multiselect__content')]")));
-            suggestBlock.FindElement(By.XPath("./li[@class='multiselect__element']")).Click();
+                .ElementExists(By.XPath(FilterByPlayerInputXpath + FilterDropdownIsEmptyXpath)));
+            suggestBlock.FindElement(By.XPath(FilterCloseDropdownXpath)).Click();
             return this;
         }
 
-        
-
-        public bool PlayerIdAll(string playerID)
+        public bool ComparePlayerIdForAllElementsWithFilteredValue(string playerID)
         {
-            var collectionAdress = GetColumnAdress("playerId");
+            var collectionAdress = GetColumnAdressXpath("playerId");
             Wait.UntilPageIsReady(3, collectionAdress);
             List<string> collection = new List<string>();
             var table = GetBetViewTableData(collectionAdress);
@@ -107,11 +103,11 @@ namespace TestFramework.Pages
             return true;
         }
 
-        public bool AcceptTimeAll(string actualDateString)
+        public bool CompareAcceptTimeForAllElementsWithFilteredValue(string actualDateString)
         {
             DateTime actualDate = DateTime.Parse(actualDateString, CultureInfo.CreateSpecificCulture("de-DE"));
             List<DateTime> collection = new List<DateTime>();
-            var collectionAdress = GetColumnAdress("betAcceptTime");
+            var collectionAdress = GetColumnAdressXpath("betAcceptTime");
             var table = GetBetViewTableData(collectionAdress);
             foreach (IWebElement element in table)
             {
@@ -126,11 +122,11 @@ namespace TestFramework.Pages
             return true;
         }
 
-        public List<string> EventNameAll() 
+        public List<string> GetEventNameForAllElements()
         {
             List<string> collection = new List<string>();
-            var collectionAdress = GetColumnAdress("eventName");
-            Wait.UntilPageIsReady(elementToBeReady: collectionAdress);
+            var collectionAdress = GetColumnAdressXpath("eventName");
+            Wait.UntilPageIsReady(3,elementToBeReady: collectionAdress);
             var table = GetBetViewTableData(collectionAdress);
             foreach (IWebElement element in table)
             {
@@ -138,19 +134,5 @@ namespace TestFramework.Pages
             }
             return collection;
         }
-
-
-        public string GetColumnAdress(string columnName)
-        {
-             string tableColumnAdress 
-                = $"//div[@class='bet-view-table-wrapper current']//table[@id='betViewTable']//td[@class='bet-view-table-cell {columnName}']//div";
-            return tableColumnAdress;
-        }
-        public ReadOnlyCollection<IWebElement> GetBetViewTableData (string tableColumnAdress)
-        {
-            ReadOnlyCollection<IWebElement> links = Driver.FindElements(By.XPath(tableColumnAdress));
-            return links;
-        }
-
     }
 }
