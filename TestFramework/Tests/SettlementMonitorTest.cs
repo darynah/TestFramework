@@ -1,16 +1,19 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 using TestFramework.DataProvider;
 using TestFramework.Pages;
 using TestFramework.Requests;
+using TestFramework.Utils;
 using static TestFramework.DataProvider.ChannelMapper;
 
 namespace TestFramework.Tests
 {
     public class SettlementMonitorTest : _BaseUITest
     {
-        public SettlementMonitorRequest _settlementMonitorRequest;
+        public BetViewRequest _settlementMonitorRequest;
         public AuthorizationMonitor _authorizationPage;
         public SettlementMonitorPage _settlementMonitorPage;
         public SettlenemtMonitorEventPage _settlenemtMonitorEventPage;
@@ -20,7 +23,7 @@ namespace TestFramework.Tests
         [SetUp]
         public void BeforeTest()
         {
-            _settlementMonitorRequest = new SettlementMonitorRequest();
+            _settlementMonitorRequest = new BetViewRequest();
             _authorizationPage = new AuthorizationMonitor();
             _settlementMonitorPage = new SettlementMonitorPage();
             _settlenemtMonitorEventPage = new SettlenemtMonitorEventPage();
@@ -45,14 +48,14 @@ namespace TestFramework.Tests
 
             Assert.Multiple(() =>
             {
-                Assert.That(actual.eventTime, Is.EqualTo(expected.eventTime));
-                Assert.That(actual.eventDate, Is.EqualTo(expected.eventDate));
-                Assert.That(actual.eventName, Is.EqualTo(expected.eventName));
-                Assert.That(actual.eventDescription, Is.EqualTo(expected.eventDescription));
-                Assert.That(actual.eventAlert, Is.EqualTo(expected.eventAlert));
-                Assert.That(actual.eventStage, Is.EqualTo(expected.eventStage));
-                Assert.That(actual.eventScore, Is.EqualTo(expected.eventScore));
-                Assert.That(actual.eventSettlementState, Is.EqualTo(expected.eventSettlementState));
+                Assert.That(actual.EventTime, Is.EqualTo(expected.EventTime));
+                Assert.That(actual.EventDate, Is.EqualTo(expected.EventDate));
+                Assert.That(actual.EventName, Is.EqualTo(expected.EventName));
+                Assert.That(actual.EventDescription, Is.EqualTo(expected.EventDescription));
+                Assert.That(actual.EventAlert, Is.EqualTo(expected.EventAlert));
+                Assert.That(actual.EventStage, Is.EqualTo(expected.EventStage));
+                Assert.That(actual.EventScore, Is.EqualTo(expected.EventScore));
+                Assert.That(actual.EventSettlementState, Is.EqualTo(expected.EventSettlementState));
             });
         }
 
@@ -75,13 +78,13 @@ namespace TestFramework.Tests
                 .GetBetinfo();
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(expected.eventTime, actual.eventTime);
-                Assert.AreEqual(expected.betStatus, actual.betStatus);
-                Assert.AreEqual(expected.betResult, actual.betResult);
-                Assert.AreEqual(expected.resultSource, actual.resultSource);
-                Assert.AreEqual(expected.eventName, actual.eventName);
-                Assert.AreEqual(expected.marketName, actual.marketName);
-                Assert.AreEqual(expected.comment, actual.comment);
+                Assert.AreEqual(expected.EventTime, actual.EventTime);
+                Assert.AreEqual(expected.BetStatus, actual.BetStatus);
+                Assert.AreEqual(expected.BetResult, actual.BetResult);
+                Assert.AreEqual(expected.ResultSource, actual.ResultSource);
+                Assert.AreEqual(expected.EventName, actual.EventName);
+                Assert.AreEqual(expected.MarketName, actual.MarketName);
+                Assert.AreEqual(expected.Comment, actual.Comment);
             });
         }
 
@@ -114,7 +117,7 @@ namespace TestFramework.Tests
             Assert.True(_playerHistoryPage.IsActiveTabEquals("BET HISTORY"));
             var actual = _playerHistoryPage.GetBetInfoFromPlayerHistory();
             Assert.AreEqual(expectedChannel, actual.channel);
-            var acceptedDateRaw = actual.betAcceptTime.Replace("\r\n", " ");
+            var acceptedDateRaw = actual.BetAcceptTime.Replace("\r\n", " ");
             DateTime acceptedDate = DateTime.Parse(acceptedDateRaw, CultureInfo.CreateSpecificCulture("de-DE"));
             Assert.True(expectedDate < acceptedDate);
         }
@@ -132,7 +135,7 @@ namespace TestFramework.Tests
             _BMEPage.Filter("Время приема", "Временной интервал");
             _BMEPage.FilterByDate(dateFrom, dateTo);
             _BMEPage.InsertPlayerID(playerId);
-            _BMEPage.Submit();
+            _BMEPage.ClickSubmit();
             Assert.True(_BMEPage.PlayerIdAll(playerId));
             Assert.True(_BMEPage.AcceptTimeAll(dateFrom));
         }
@@ -141,11 +144,27 @@ namespace TestFramework.Tests
         public void Test5BEFE()
 
         {
+            string dateFrom = "01.06.2019 00:00:00";
+            string dateTo = "04.06.2019 00:00:00";
+            string playerId = "087210296";
+            _authorizationPage.GoToPage();
+            _authorizationPage.Authorize();
+            _BMEPage.GoToPage();
+            _BMEPage.Filter("Время приема", "Временной интервал");
+            _BMEPage.FilterByDate(dateFrom, dateTo);
+            _BMEPage.InsertPlayerID(playerId);
+            _BMEPage.ClickSubmit();
+            var eventNameFE = _BMEPage.EventNameAll();
             var loginProviderMonitor = new LoginProviderMonitor();
             _settlementMonitorRequest.AuthorizeInMonitor(loginProviderMonitor);
-            _settlementMonitorRequest.RequestBetViewBets();
+            var eventNamesBE = _settlementMonitorRequest.RequestBetViewBets();
+            eventNameFE.CompareToList(eventNamesBE);
+
 
         }
+
+        
+
     }
 }
 

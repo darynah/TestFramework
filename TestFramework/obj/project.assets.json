@@ -1644,11 +1644,11 @@
   },
   "libraries": {
     "DotNetSeleniumExtras.WaitHelpers/3.11.0": {
-      "sha512": "xc6jVVl5ymgk3ZNWnC/KHxkEup1QpnwYbrwF+NQoCOGERsD8YMlLwmsX4lGhLXCLo/YQTRTIwlKCN9E/doGUNg==",
+      "sha512": "atYYxPAJA4IBSE09O45Q0qSTdW8HqfTj/6rjItpo4FfkQ1mtKhiywopgYJYcsRfkgUfAL38r6tgs+5vd7JfHAw==",
       "type": "package",
       "path": "dotnetseleniumextras.waithelpers/3.11.0",
       "files": [
-        ".nupkg.metadata",
+        ".signature.p7s",
         "dotnetseleniumextras.waithelpers.3.11.0.nupkg.sha512",
         "dotnetseleniumextras.waithelpers.nuspec",
         "lib/net35/SeleniumExtras.WaitHelpers.dll",
@@ -1658,11 +1658,10 @@
       ]
     },
     "LumenWorks.Framework.IO.Core/1.0.1": {
-      "sha512": "XCLIaKbk56tIQelAHsN+iFjPDZGyaf6/PN0rO7P8kCJubpnLTtpdWH/EK6NDyNsuWNcEtqAbhXJ9zAUipN4OaA==",
+      "sha512": "KSBoY7TEN+n8iXjCyXAAAtgvN/49xd4Vxt9ifinU1Y3TXVCBJ16baW4Odtr0NcUoY8D3iWlTnPMUaDYV7Z595w==",
       "type": "package",
       "path": "lumenworks.framework.io.core/1.0.1",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "lib/netstandard2.0/LumenWorks.Framework.IO.Core.dll",
         "lumenworks.framework.io.core.1.0.1.nupkg.sha512",
@@ -1670,11 +1669,10 @@
       ]
     },
     "Microsoft.Bcl/1.1.10": {
-      "sha512": "+tTqoh/M1pyL8El3qLy30EcwnAtyvFoDZJtdG9Cbg/WdFbh4N8kyrq198XHuEL7lnJbeD0DRO8jcX5IIOh05cQ==",
+      "sha512": "Ne7S1fkpaKf0UJApAgpZOhYunvhzXEWseiuNNmMTtaG7bGULsAvMCSNjg9dKXwhheG5oTaTDToekokAkOrW44Q==",
       "type": "package",
       "path": "microsoft.bcl/1.1.10",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "License-Stable.rtf",
         "lib/Xamarin.iOS10/_._",
@@ -1762,12 +1760,10 @@
       ]
     },
     "Microsoft.Bcl.Build/1.0.14": {
-      "sha512": "cDLKSvNvRa519hplsbSoYqO69TjdDIhfjtKUM0g20/nVROoWsGav9KCI9HtnGjLmdV1+TcUUDhbotcllibjPEA==",
+      "sha512": "TVFi0klpPcvqtP98eOY61ULPBw3AFcwrnuMAAdkhbYubMkQa/THPJWSYXoDSY/7uh2oUDCn41Nd+3EpUNzbZpQ==",
       "type": "package",
       "path": "microsoft.bcl.build/1.0.14",
-      "hasTools": true,
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "License-Stable.rtf",
         "content/net40/_._",
@@ -1784,11 +1780,10 @@
       ]
     },
     "Microsoft.CodeCoverage/15.8.0": {
-      "sha512": "2hwgoDq1ipHizvgBJG3SBhOnAQlq8eeyk19o2ywauP11+5DjkmDTNUjYglQsHgKKOkvPvCOAaFflQlLbkQnz3Q==",
+      "sha512": "cgcX2c/K35GrIjXkUwWop2GyG/YsLVo2wnL/2ESzOqr4V21FrrCVYuhpClv/bD80+rwXyIpyulqSX1NBNeAtMA==",
       "type": "package",
       "path": "microsoft.codecoverage/15.8.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "build/netstandard1.0/CodeCoverage/CodeCoverage.config",
         "build/netstandard1.0/CodeCoverage/CodeCoverage.exe",
@@ -1820,11 +1815,10 @@
       ]
     },
     "Microsoft.DotNet.InternalAbstractions/1.0.0": {
-      "sha512": "AAguUq7YyKk3yDWPoWA8DrLZvURxB/LrDdTn1h5lmPeznkFUpfC3p459w5mQYQE0qpquf/CkSQZ0etiV5vRHFA==",
+      "sha512": "S8f3mnSN4yNYafvMEuZKz3VSSv49BQahI6Ibmx9ryuc+7EQ3QsTt4rSvrazwoX2qcLhkPpDV/wLW7yDK6nyuFA==",
       "type": "package",
       "path": "microsoft.dotnet.internalabstractions/1.0.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "lib/net451/Microsoft.DotNet.InternalAbstractions.dll",
         "lib/netstandard1.3/Microsoft.DotNet.InternalAbstractions.dll",
@@ -1862,11 +1856,10 @@
       ]
     },
     "Microsoft.Net.Http/2.2.29": {
-      "sha512": "fc4CPEewJ30Xgal+fSq1lYIBt582A7eKlAL7O4HXiYAiTp2VTnA4osSvk7T2n8aS4xTCPVJusQk3yKLT0XSpkg==",
+      "sha512": "v8nUdSv3acVH5xQ7dYKHjdPXRRtpAW8YCWHa7M1rAwhfnKg5tSop21spsMeExcEqwmE86pgT9rECTgObWlgOOg==",
       "type": "package",
       "path": "microsoft.net.http/2.2.29",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "License-Stable.rtf",
         "lib/Xamarin.iOS10/System.Net.Http.Extensions.XML",
@@ -1931,11 +1924,10 @@
       ]
     },
     "Microsoft.NET.Test.Sdk/15.8.0": {
-      "sha512": "u7DjH/b1je0sGyYVH+MDMzwVTBRod34mDhkHFAZfVWkRleH9WZLP9FE+1QAU2FBIF5pIJzzRxAs1yDVrof+WGw==",
+      "sha512": "yRnkhvz0RXRGmoLZqcL917aA8GoEgJRyxhmlf1CoFxU/6msYeIPxVJbBFnMpiSOm8rrY2jJedWnJUODQRbalaw==",
       "type": "package",
       "path": "microsoft.net.test.sdk/15.8.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "build/net45/Microsoft.Net.Test.Sdk.props",
         "build/net45/Microsoft.Net.Test.Sdk.targets",
@@ -2300,11 +2292,10 @@
       ]
     },
     "Microsoft.TestPlatform.ObjectModel/15.8.0": {
-      "sha512": "u6qrZi8pXZrPl+vAJBn/yIaPEsl/NglcLD9FD/fh1OmBaFMcp/dp/5daTB7Fo89iDgktZa6PoACq86tZs0DYXA==",
+      "sha512": "+tYt5UdC30qIw+0G36F1hYId782nNVM5JFaGq1LB9nSpW8NMLgZQ0B5G5huywGfD0o22LWEmoadPO+ClcTfIMw==",
       "type": "package",
       "path": "microsoft.testplatform.objectmodel/15.8.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "lib/net451/Microsoft.TestPlatform.CoreUtilities.dll",
         "lib/net451/Microsoft.TestPlatform.PlatformAbstractions.dll",
@@ -2372,11 +2363,10 @@
       ]
     },
     "Microsoft.TestPlatform.TestHost/15.8.0": {
-      "sha512": "YCbFo2qKhbRn/6h3+pfA8bDJtxg0BpwwBqVMM+KRJTq1zqH9zOTeQuSaNe0DDaxzc0mmD9a4Wn4qG1yuNHDMBA==",
+      "sha512": "sjtjYSZnMvJG2Bhgq6rN4zTY+YEcKymIK4ADNhgWGmKhuDDfYRl7ynWCiQmvoAR27q4ABDYKMJ4oDQbaQRTzYg==",
       "type": "package",
       "path": "microsoft.testplatform.testhost/15.8.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "ThirdPartyNotices.txt",
         "build/uap10.0/Microsoft.TestPlatform.TestHost.props",
@@ -2554,11 +2544,11 @@
       ]
     },
     "Microsoft.Win32.Registry/4.3.0": {
-      "sha512": "Lw1/VwLH1yxz6SfFEjVRCN0pnflLEsWgnV4qsdJ512/HhTwnKXUG+zDQ4yTO3K/EJQemGoNaBHX5InISNKTzUQ==",
+      "sha512": "OHAvcu6tVh40PncTYFkpLItsw9O8sUc59C4eqSqEd+U5rY7t0+u7Xoi6Mw2QOfvPJ2HUJlwIEVqxklDIfn757Q==",
       "type": "package",
       "path": "microsoft.win32.registry/4.3.0",
       "files": [
-        ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/net46/Microsoft.Win32.Registry.dll",
@@ -2713,11 +2703,10 @@
       ]
     },
     "Newtonsoft.Json/11.0.2": {
-      "sha512": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+      "sha512": "znZGbws7E4BA9jxNZ7FuiIRI3C9hrgatVQSTKhIYZYNOud4M5VfGlTYi6RdYO5sQrebFuF/g9UEV3hOxDMXF6Q==",
       "type": "package",
       "path": "newtonsoft.json/11.0.2",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.md",
         "lib/net20/Newtonsoft.Json.dll",
@@ -2743,11 +2732,10 @@
       ]
     },
     "NUnit/3.11.0": {
-      "sha512": "BzGk+u02RCrysmLlSzD+okxzMQ8JRF4eFC/qijDJ8Y/FBdTrTkxkQyTFsYkG1o++pr7QpFAE4VDXDqIfZ/gBAg==",
+      "sha512": "zecrYxUA5p5w8AZ2bvbBbiUIcrQnZAVPrziNMSWMdcOi0D2Oe7yKUNivWPIQMcUwQDHmWtS/ijnD48ubU/eHZQ==",
       "type": "package",
       "path": "nunit/3.11.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "CHANGES.md",
         "LICENSE.txt",
@@ -2812,11 +2800,10 @@
       ]
     },
     "Selenium.Support/3.141.0": {
-      "sha512": "F4sxMCXGyqWtbw5qsniJRgza2UsBnslHwFgNA2p7hPxvJhqg73lyXu/ZscJ7FSfRvq3eJrosysv92+4sZ3vWsg==",
+      "sha512": "ov2XBE48L1M2bTc8azz5rSpfT45+q6bw9sBc84NObGebFZ/S2SCnV/TSoBy2Zf3vPXij63Nd1VRcwQkyKC4Vyw==",
       "type": "package",
       "path": "selenium.support/3.141.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "lib/net35/WebDriver.Support.dll",
         "lib/net35/WebDriver.Support.xml",
@@ -2831,11 +2818,10 @@
       ]
     },
     "Selenium.WebDriver/3.141.0": {
-      "sha512": "wPqzXO3f79DzqauTZSzLMKiaBCN0Z2Mv7KvWP+hnV6EL88zh/pJJnFtdIR1X5wa3hsTOpF/bBJs45rz7kArsiA==",
+      "sha512": "ymXPJ9zp7KPIV0H6DdI3boIwc46LrEW1T653Ow6OsRbMFgyDcqRCX8JOeYLm68jIq+7rgECLLUXxmAit5TP/Iw==",
       "type": "package",
       "path": "selenium.webdriver/3.141.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "lib/net35/WebDriver.dll",
         "lib/net35/WebDriver.xml",
@@ -2850,11 +2836,10 @@
       ]
     },
     "Selenium.WebDriver.ChromeDriver/74.0.3729.6": {
-      "sha512": "C9dfVytnfhzQH49+TZHAuyZZmoRPTv/SrvL2sdOnnEjucMJJuvsp7/hudFQYfYTmjgBLq8znwmvMIm5ZbTZ62Q==",
+      "sha512": "0tIlZ6AOqDffuWcAgyaLpEalA0pEyEJ1+lDX8hce06guk4Cg6g5f2+xJQ1iOJqjEgbw1rVaUY8h/X2lbEqWJKw==",
       "type": "package",
       "path": "selenium.webdriver.chromedriver/74.0.3729.6",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "build/Selenium.WebDriver.ChromeDriver.targets",
         "driver/linux64/chromedriver",
@@ -3197,11 +3182,10 @@
       ]
     },
     "System.ComponentModel.EventBasedAsync/4.3.0": {
-      "sha512": "fCFl8f0XdwA/BuoNrVBB5D0Y48/hv2J+w4xSDdXQitXZsR6UCSOrDVE7TCUraY802ENwcHUnUCv4En8CupDU1g==",
+      "sha512": "SXx4bOoSfWE1TIq7RyY7GhIL8W1ueW+xHQApV7bkWs42eDZUwfPgct5tv3jZkWRkvQ8JjWF1ab1d1lFwqYPE+Q==",
       "type": "package",
       "path": "system.componentmodel.eventbasedasync/4.3.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -3422,11 +3406,11 @@
       ]
     },
     "System.Diagnostics.Process/4.3.0": {
-      "sha512": "J0wOX07+QASQblsfxmIMFc9Iq7KTXYL3zs2G/Xc704Ylv3NpuVdo6gij6V3PGiptTxqsK0K7CdXenRvKUnkA2g==",
+      "sha512": "gFvIaiWxt33En3oUVkzSYUzKoOm8abV8IbM53HPOfLZBLD9yRdDxvqRihK/1ySRkFp5NZIXd4cYWsY0ybnvANg==",
       "type": "package",
       "path": "system.diagnostics.process/4.3.0",
       "files": [
-        ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -5746,11 +5730,10 @@
       ]
     },
     "System.Xml.XPath.XmlDocument/4.3.0": {
-      "sha512": "A/uxsWi/Ifzkmd4ArTLISMbfFs6XpRPsXZonrIqyTY70xi8t+mDtvSM5Os0RqyRDobjMBwIDHDL4NOIbkDwf7A==",
+      "sha512": "91tvfHWHSrYFPolCwWYqbpo1YaoBUCQ3uNZ/O/zr0ev5BnkoATJoie16ywlMVUaXZtfSfNELxhtG3aqpTfwR4w==",
       "type": "package",
       "path": "system.xml.xpath.xmldocument/4.3.0",
       "files": [
-        ".nupkg.metadata",
         ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
@@ -5799,23 +5782,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\vilsh\\.nuget\\packages\\": {},
+    "C:\\Users\\Darin\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vilsh\\source\\repos\\TestFramework\\TestFramework\\TestFramework.csproj",
+      "projectUniqueName": "D:\\Projects\\TestFramework\\TestFramework\\TestFramework.csproj",
       "projectName": "TestFramework",
-      "projectPath": "C:\\Users\\vilsh\\source\\repos\\TestFramework\\TestFramework\\TestFramework.csproj",
-      "packagesPath": "C:\\Users\\vilsh\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vilsh\\source\\repos\\TestFramework\\TestFramework\\obj\\",
+      "projectPath": "D:\\Projects\\TestFramework\\TestFramework\\TestFramework.csproj",
+      "packagesPath": "C:\\Users\\Darin\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\TestFramework\\TestFramework\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\vilsh\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Darin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5823,6 +5806,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://scm.betlab.private:8070/nuget": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

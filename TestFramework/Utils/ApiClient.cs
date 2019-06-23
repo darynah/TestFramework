@@ -32,12 +32,12 @@ namespace TestFramework.Utils
             return result;
         }
 
-        public async Task<string> PostWithToken(string requestUri, string token, string jsonObject)
+        public string PostWithToken(string requestUri, string token, string jsonObject)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var content = new StringContent(jsonObject.ToString(), Encoding.UTF8, "application/json");
             var response = _client.PostAsync(requestUri, content).Result;
-            var contents = await response.Content.ReadAsStringAsync();
+            var contents =  response.Content.ReadAsStringAsync().Result;
             return contents;
         }
 
