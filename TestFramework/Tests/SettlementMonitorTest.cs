@@ -1,13 +1,10 @@
 ﻿using NUnit.Framework;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Security.Cryptography.X509Certificates;
 using TestFramework.DataProvider;
 using TestFramework.Pages;
 using TestFramework.Pages.Monitor;
 using TestFramework.Requests;
-using TestFramework.Utils;
 using static TestFramework.DataProvider.ChannelMapper;
 
 namespace TestFramework.Tests
@@ -19,7 +16,7 @@ namespace TestFramework.Tests
         public SettlementMonitorPage _settlementMonitorPage;
         public SettlenemtMonitorEventPage _settlenemtMonitorEventPage;
         public PlayerHistoryPage _playerHistoryPage;
-        public BMEPage _BMEPage;
+        public BetsMonitorPage _betsMonitorPage;
 
         [SetUp]
         public void BeforeTest()
@@ -29,12 +26,18 @@ namespace TestFramework.Tests
             _settlementMonitorPage = new SettlementMonitorPage();
             _settlenemtMonitorEventPage = new SettlenemtMonitorEventPage();
             _playerHistoryPage = new PlayerHistoryPage();
-            _BMEPage = new BMEPage();
+            _betsMonitorPage = new BetsMonitorPage();
         }
 
         [Test]
-        public void Test1SettlementMonitorEvent()
+        public void Test1SettlementMonitorTreeEventDataCheck()
         {
+            var DateFrom = "01.06.19";
+            var Sport = "Футбол";
+            var Category = "Австралия";
+            var Tournament = "Виктория. Национальная Премьер-лига";
+            var EtapSobitiya = "Finished";
+
             var expected = new EventProvider();
             _authorizationPage
                 .GoToPage()
@@ -42,9 +45,9 @@ namespace TestFramework.Tests
             var actual = _settlementMonitorPage
                 .GoPage()
                 .CloseDashboard()
-                .FilterByDateInCalendar("01.06.19")
-                .ClickOnEventInEventTree("Футбол", "Австралия", "Виктория. Национальная Премьер-лига")
-                .SelectEtapSobitiya("Finished")
+                .FilterByDateInCalendar(DateFrom)
+                .ClickOnEventInEventTree(Sport, Category, Tournament)
+                .SelectEtapSobitiya(EtapSobitiya)
                 .RefreshEvenTree()
                 .SelectEvent();
 
@@ -62,22 +65,25 @@ namespace TestFramework.Tests
         }
 
         [Test]
-        public void Test2SettlementMonitorEvent()
+        public void Test2SettlementMonitorBetInfoDataCheck()
         {
+            var DateFrom = "01.06.19";
+            var EventName = "Мельбурн";
+
             _authorizationPage
                 .GoToPage()
                 .Authorize();
             var expected = new BetInfoProvider();
             var actual = _settlementMonitorPage
-                .GoPage()
-                .CloseDashboard()
-                .FilterByDateInCalendar("01.06.19")
-                .InputEventName("Мельбурн")
-                .ClickOnEvent()
-                .ClickOnEventInRightPanel()
-                .CloseDashboard()
-                .ClickOnBetInfo()
-                .GetBetinfo();
+                 .GoPage()
+                 .CloseDashboard()
+                 .FilterByDateInCalendar(DateFrom)
+                 .InputEventName(EventName)
+                 .ClickOnEvent()
+                 .ClickOnEventInRightPanel()
+                 .CloseDashboard()
+                 .ClickOnBetInfo()
+                 .GetBetinfo();
             Assert.Multiple(() =>
             {
                 Assert.AreEqual(expected.EventTime, actual.EventTime);
@@ -91,13 +97,17 @@ namespace TestFramework.Tests
         }
 
         [Test]
-        public void Test3SettlementMonitorEvent()
+        public void Test3SettlementMonitorEventFiltteredDataCheck()
         {
+            var actualDate = "20.05.2019 02:30:00";
+            var actualAmountFrom = "2";
+            var actualAmountTo = "5";
+            var actualSegment = "Без статуса";
+            var actualChannel = "Desktop";
 
-            var insertedChannel = "Desktop";
-            var expectedChannel = ToMapChannel(insertedChannel);
-            var insertedDate = "20.05.2019 02:30:00";
-            DateTime expectedDate = DateTime.Parse(insertedDate, CultureInfo.CreateSpecificCulture("de-DE"));
+            var expectedChannel = ToMapChannel(actualChannel);
+            DateTime expectedDate = DateTime.Parse(actualDate, CultureInfo.CreateSpecificCulture("de-DE"));
+
             _authorizationPage
                 .GoToPage()
                 .Authorize();
@@ -105,15 +115,13 @@ namespace TestFramework.Tests
                 .GoToPage()
                 .CloseDashboard()
                 .ClickOnFilterButton()
-                .InsertDateFrom(insertedDate)
-                .InsertAmount("От","2")
-                .InsertAmount("До","5")
-                .InsertTextIntoDropbown("Segment", "Без статуса")
-                .ClickOnEmptySpaceInFilter("Segment")
-                .InsertTextIntoDropbown("Channel", insertedChannel)
-                .ClickOnEmptySpaceInFilter("Channel")
+                .InsertDateFrom(actualDate)
+                .InsertAmount("От", actualAmountFrom)
+                .InsertAmount("До", actualAmountTo)
+                .InsertTextIntoDropbown("Segment", actualSegment)
+                .InsertTextIntoDropbown("Channel", actualChannel)
                 .PressConfirmButton()
-                .PressPlayerId();
+                .PressFirtsPlayerIdInTable();
             _playerHistoryPage.GotoPage();
             Assert.True(_playerHistoryPage.IsActiveTabEquals("BET HISTORY"));
             var actual = _playerHistoryPage.GetBetInfoFromPlayerHistory();
@@ -125,48 +133,49 @@ namespace TestFramework.Tests
 
 
         [Test]
-        public void Test4BME()
+        public void Test4BetsMonitorFiltteredDataCheck()
         {
             string dateFrom = "01.06.2019 00:00:00";
             string dateTo = "04.06.2019 00:00:00";
             string playerId = "087210296";
-            _authorizationPage.GoToPage();
-            _authorizationPage.Authorize();
-            _BMEPage.GoToPage();
-            _BMEPage.FilterByItem("Время приема", "Временной интервал");
-            _BMEPage.FilterByDate(dateFrom, dateTo);
-            _BMEPage.InsertPlayerID(playerId);
-            _BMEPage.ClickSubmitInFilter();
-            Assert.True(_BMEPage.ComparePlayerIdForAllElementsWithFilteredValue(playerId));
-            Assert.True(_BMEPage.CompareAcceptTimeForAllElementsWithFilteredValue(dateFrom));
+
+            _authorizationPage
+                .GoToPage()
+                .Authorize();
+            _betsMonitorPage
+                .GoToPage()
+                .FilterByItem("Время приема", "Временной интервал")
+                .FilterByDate(dateFrom, dateTo)
+                .InsertPlayerID(playerId)
+                .ClickSubmitInFilter();
+            Assert.True(_betsMonitorPage.ComparePlayerIdForAllElementsWithFilteredValue(playerId));
+            Assert.True(_betsMonitorPage.CompareAcceptTimeForAllElementsWithFilteredValue(dateFrom));
         }
 
         [Test]
-        public void Test5BEFE()
+        public void Test5BetsMonitorCompareBMEfrontvsBetViewResponce()
 
         {
             string dateFrom = "01.06.2019 00:00:00";
             string dateTo = "04.06.2019 00:00:00";
             string playerId = "087210296";
-            _authorizationPage.GoToPage();
-            _authorizationPage.Authorize();
-            _BMEPage.GoToPage();
-            _BMEPage.FilterByItem("Время приема", "Временной интервал");
-            _BMEPage.FilterByDate(dateFrom, dateTo);
-            _BMEPage.InsertPlayerID(playerId);
-            _BMEPage.ClickSubmitInFilter();
-            var eventNameFE = _BMEPage.GetEventNameForAllElements();
+
             var loginProviderMonitor = new LoginProviderMonitor();
+
+            _authorizationPage
+                .GoToPage()
+                .Authorize();
+            _betsMonitorPage
+                .GoToPage()
+                .FilterByItem("Время приема", "Временной интервал")
+                .FilterByDate(dateFrom, dateTo)
+                .InsertPlayerID(playerId)
+                .ClickSubmitInFilter();
+            var eventNameFE = _betsMonitorPage.GetEventNameForAllElements();
             _settlementMonitorRequest.AuthorizeInMonitor(loginProviderMonitor);
             var eventNamesBE = _settlementMonitorRequest.RequestBetViewBets();
-            eventNameFE.CompareToList(eventNamesBE);
-
-
+            CollectionAssert.AreEqual(eventNameFE, eventNamesBE);
         }
-
-        
 
     }
 }
-
-

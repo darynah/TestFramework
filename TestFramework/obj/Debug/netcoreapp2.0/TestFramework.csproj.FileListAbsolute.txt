@@ -105,3 +105,4 @@ D:\Projects\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.As
 D:\Projects\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.AssemblyInfo.cs
 D:\Projects\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.dll
 D:\Projects\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.pdb
+D:\Projects\TestFramework\TestFramework\obj\Debug\netcoreapp2.0\TestFramework.csprojResolveAssemblyReference.cache

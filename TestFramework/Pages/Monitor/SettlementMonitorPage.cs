@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Linq;
+using OpenQA.Selenium;
 using TestFramework.DataProvider;
 
 namespace TestFramework.Pages.Monitor
@@ -17,11 +18,14 @@ namespace TestFramework.Pages.Monitor
             Driver.FindElement(By.XPath($"//td[@title='{date}' and@class='cell cur-month']"));
         private IWebElement GetCalendarRefresh =>
             Driver.FindElement(By.XPath("//button[@class='link transparent refresh']"));
-        private IWebElement GetEvenTreeCheckbox => Driver.FindElement(By.XPath("//span[@class='material-icons']"));
+        private IWebElement GetEvenTreeCheckbox => 
+            Driver.FindElement(By.XPath("//span[@class='material-icons']"));
         private IWebElement GetPinnedEvent =>
             Driver.FindElement(By.XPath("//section[@class='settlement-event-list pinned']//div[@class='alert-item'][1]"));
         private IWebElement PinnedElementBlock =>
             Driver.FindElement(By.XPath("//section[@class='settlement-event-list pinned']"));
+        private IWebElement BetLogsPopup =>
+            Driver.FindElement(By.XPath("//tr[@class='bo-table-row'][1]"));
 
         public SettlementMonitorPage GoPage()
         {
@@ -32,7 +36,13 @@ namespace TestFramework.Pages.Monitor
 
         public SettlementMonitorPage CloseDashboard()
         {
-            Wait.UntilElementReady(Driver, By.XPath(CloseDashboardXpath)).Click();
+            Wait.UntilPageIsReady(3);
+            var CloseDashBoardButton = Driver.FindElements(By.XPath(CloseDashboardXpath));
+            var elementExist = (CloseDashBoardButton.Count >= 1) ? CloseDashBoardButton.First() : null;
+            if (elementExist !=null)
+            {
+                Driver.FindElement(By.XPath(CloseDashboardXpath)).Click();
+            }
             return this;
         }
 
@@ -119,22 +129,25 @@ namespace TestFramework.Pages.Monitor
 
         public SettlementMonitorPage ClickOnBetInfo()
         {
+            Wait.UntilElementReady(Driver,By.XPath(
+                "//section[@class='event-bet-table-wrapper']//div/table[@class='mn-table bet-table']//tr[1]//button[@class='transparent icon']"),2000);
             Driver.FindElement(By.XPath("//section[@class='event-bet-table-wrapper']//div/table[@class='mn-table bet-table']//tr[1]//button[@class='transparent icon']")).Click();
             return this;
         }
 
         public BetInfoProvider GetBetinfo()
-
+        
         {
+            
             return new BetInfoProvider
             {
-                EventTime = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[1]")).Text,
-                BetStatus = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[2]")).Text,
-                BetResult = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[3]")).Text,
-                ResultSource = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[4]")).Text,
-                EventName = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[5]")).Text,
-                MarketName = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[6]")).Text,
-                Comment = Driver.FindElement(By.XPath("//table[@class='mn-table']/tbody//tr[1]//td[7]")).Text
+                EventTime = BetLogsPopup.FindElement(By.XPath("./td[@class='settlementTime']")).Text,
+                BetStatus = BetLogsPopup.FindElement(By.XPath("./td[@class='status']")).Text,
+                BetResult = BetLogsPopup.FindElement(By.XPath("./td[@class='result']")).Text,
+                ResultSource = BetLogsPopup.FindElement(By.XPath("./td[@class='operator']")).Text,
+                EventName = BetLogsPopup.FindElement(By.XPath("./td[@class='eventName']")).Text,
+                MarketName = BetLogsPopup.FindElement(By.XPath("./td[@class='market']")).Text,
+                Comment = BetLogsPopup.FindElement(By.XPath("./td[@class='settlementComment']")).Text,
             };
         }
     }

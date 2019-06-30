@@ -11,7 +11,7 @@ namespace TestFramework.Pages
         public AuthorizationMonitor GoToPage()
         {
             Driver.Url = "http://backoffice.kube.private/login";
-            Wait.UntilPageIsReady(3, "//div[@class='app']//button[contains(text(),'Sign in')]");
+            Wait.UntilPageIsReady(3, SignInButtonXpath);
             return this;
         }
 
